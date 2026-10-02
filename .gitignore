@@ -10,6 +10,7 @@ env/
 # ─── Environment / Secrets ───────────────────────────────────────
 .env
 .env.local
+.env.example
 *.pem
 *.key
 *.crt
