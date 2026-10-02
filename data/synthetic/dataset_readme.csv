@@ -1,0 +1,10 @@
+Field,Value
+Dataset status,SYNTHETIC — NOT REAL VICTIM DATA
+Records,20000
+Synthetic victims,2000
+Interactions per victim,10
+Purpose,Prototype training/testing for dynamic distress-risk prediction
+Important limitation,No row represents a real person. Do not present it as observed clinical or government victim data.
+Distress score,Synthetic research feature generated from case/stress/engagement variables; NOT a clinical diagnosis or validated scale.
+Risk thresholds,Low <40; Moderate 40–64.99; High 65–79.99; Critical >=80.
+Government grounding,Case/relief dimensions are designed to be compatible with publicly reported PoA/NCRB-style aggregate statistics.

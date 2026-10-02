@@ -1,0 +1,82 @@
+[
+  {
+    "feature": "current_distress_score",
+    "mean_abs_shap": 14.317277908325195
+  },
+  {
+    "feature": "economic_stress_1_to_5",
+    "mean_abs_shap": 4.111772060394287
+  },
+  {
+    "feature": "social_support_1_to_5",
+    "mean_abs_shap": 3.1083638668060303
+  },
+  {
+    "feature": "court_appearances_to_date",
+    "mean_abs_shap": 2.8607192039489746
+  },
+  {
+    "feature": "engagement_score",
+    "mean_abs_shap": 1.8892444372177124
+  },
+  {
+    "feature": "distress_delta",
+    "mean_abs_shap": 1.313321828842163
+  },
+  {
+    "feature": "threat_received",
+    "mean_abs_shap": 1.2583372592926025
+  },
+  {
+    "feature": "investigation_or_court_delay_days",
+    "mean_abs_shap": 0.6825708746910095
+  },
+  {
+    "feature": "days_since_registration",
+    "mean_abs_shap": 0.49193570017814636
+  },
+  {
+    "feature": "sadness_score",
+    "mean_abs_shap": 0.18330754339694977
+  },
+  {
+    "feature": "interaction_number",
+    "mean_abs_shap": 0.1604677140712738
+  },
+  {
+    "feature": "distress_momentum",
+    "mean_abs_shap": 0.15987613797187805
+  },
+  {
+    "feature": "sentiment_score",
+    "mean_abs_shap": 0.1504938155412674
+  },
+  {
+    "feature": "fear_score",
+    "mean_abs_shap": 0.1469876915216446
+  },
+  {
+    "feature": "recent_distress_mean",
+    "mean_abs_shap": 0.14030879735946655
+  },
+  {
+    "feature": "sadness_change",
+    "mean_abs_shap": 0.12925821542739868
+  },
+  {
+    "feature": "voice_stress_change",
+    "mean_abs_shap": 0.11809892952442169
+  },
+  {
+    "feature": "anger_score",
+    "mean_abs_shap": 0.11054492741823196
+  },
+  {
+    "feature": "engagement_change",
+    "mean_abs_shap": 0.10847350209951401
+  },
+  {
+    "feature": "historical_distress_mean",
+    "mean_abs_shap": 0.10811559110879898
+  }
+]

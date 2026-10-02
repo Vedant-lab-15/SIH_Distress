@@ -1,0 +1,39 @@
+{
+  "predicted_distress_score": 38.64,
+  "risk_level": "low",
+  "contributors": [
+    {
+      "feature": "current_distress_score",
+      "shap_value": 7.343172550201416
+    },
+    {
+      "feature": "economic_stress_1_to_5",
+      "shap_value": -6.662242412567139
+    },
+    {
+      "feature": "court_appearances_to_date",
+      "shap_value": -4.810980319976807
+    },
+    {
+      "feature": "engagement_score",
+      "shap_value": -3.942178249359131
+    },
+    {
+      "feature": "social_support_1_to_5",
+      "shap_value": 1.4807277917861938
+    },
+    {
+      "feature": "days_since_registration",
+      "shap_value": -1.4423656463623047
+    },
+    {
+      "feature": "distress_delta",
+      "shap_value": -1.239709496498108
+    },
+    {
+      "feature": "threat_received",
+      "shap_value": -1.0318082571029663
+    }
+  ],
+  "note": "SHAP values are model attributions, not causal effects."
+}

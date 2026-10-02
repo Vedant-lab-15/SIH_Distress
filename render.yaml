@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: sanjeevani-sih
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: APP_ENV
+        value: demo
+      - key: DEMO_MODE
+        value: "true"
+      - key: DATABASE_URL
+        value: sqlite:////tmp/demo.sqlite
+      - key: MODEL_DIR
+        value: ./models
+      - key: DATASET_PATH
+        value: ./data/synthetic/synthetic_distress_dataset.csv
+      - key: AUTH_ENABLED
+        value: "false"
+      - key: LOG_LEVEL
+        value: INFO
+      # Set ALLOWED_ORIGINS to your Render URL in production:
+      # - key: ALLOWED_ORIGINS
+      #   value: https://sanjeevani-sih.onrender.com

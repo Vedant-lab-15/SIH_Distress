@@ -1,0 +1,5 @@
+SYNTHETIC — NOT REAL VICTIM DATA
+
+This dataset is a software/ML benchmark only. It must not be represented as
+clinical evidence, real victim information, government records, or a real
+population sample.

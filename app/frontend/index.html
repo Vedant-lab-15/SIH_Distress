@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SurakshaMind — AI Distress Monitoring · SIH 2026</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════  NAV  ═══════════════════════ -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <span class="nav-logo">🛡️</span>
+    <span class="nav-title">SurakshaMind</span>
+    <span class="nav-badge">SIH 2026 · PS-26094</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-btn active" data-screen="home">Home</button>
+    <button class="nav-btn" data-screen="checkin">Check-in</button>
+    <button class="nav-btn" data-screen="dashboard">Dashboard</button>
+    <button class="nav-btn" data-screen="alerts">Alerts</button>
+    <button class="nav-btn" data-screen="analytics">Analytics</button>
+  </div>
+  <div id="sysStatus" class="status-pill status-checking">● Connecting…</div>
+</nav>
+
+<!-- ═══════════════════════  SCREENS  ═══════════════════ -->
+
+<!-- ── SCREEN 1: HOME ── -->
+<section id="screen-home" class="screen active">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Ministry of Social Justice &amp; Empowerment · MoSJE</div>
+      <h1 class="hero-title">AI-Powered Dynamic Mental Health<br>Monitoring for Atrocity Victims</h1>
+      <p class="hero-para">
+        Victims of atrocities experience prolonged psychological distress long after complaint registration —
+        due to threats, repeated court appearances, investigation delays, social ostracism and economic hardship.
+        Existing support focuses only on legal and financial aid, with <strong>no continuous monitoring of victim
+        well-being</strong>. SurakshaMind is a consent-based, multilingual AI system that conducts periodic
+        check-ins, builds a personalized distress baseline, and predicts escalation <em>before</em> crisis —
+        triggering explainable alerts to counsellors and district authorities in real time.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="goTo('checkin')">Try a Check-in →</button>
+        <button class="btn-outline" onclick="goTo('dashboard')">Counsellor Dashboard</button>
+        <a class="btn-ghost" href="/docs" target="_blank">API Docs ↗</a>
+        <a class="btn-ghost" href="https://github.com" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-diagram">
+      <div class="flow-diagram">
+        <div class="flow-step fs-blue">📱 Multi-channel<br>Check-in</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step fs-purple">🤖 AI Analysis<br>+ DDS Score</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step fs-orange">📊 Detect<br>Deviation</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step fs-red">🚨 Alert<br>Counsellor</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step fs-green">✅ Intervene<br>&amp; Reassess</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-stats" id="homeStats">
+    <div class="stat-card"><div class="stat-num" id="hs-victims">—</div><div class="stat-label">Victims Monitored</div></div>
+    <div class="stat-card"><div class="stat-num" id="hs-highrisk">—</div><div class="stat-label">High-Risk Cases</div></div>
+    <div class="stat-card"><div class="stat-num" id="hs-alerts">—</div><div class="stat-label">Open Alerts</div></div>
+    <div class="stat-card"><div class="stat-num" id="hs-model">0.943</div><div class="stat-label">Model R² (Synthetic)</div></div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feat-icon">🌐</div>
+      <div class="feat-title">Multilingual &amp; Multi-channel</div>
+      <div class="feat-desc">Chatbot, IVRS, SMS, app and web in English, Hindi and regional languages via MuRIL/IndicBERT.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📈</div>
+      <div class="feat-title">Dynamic Distress Score (DDS)</div>
+      <div class="feat-desc">Personalised baseline per victim. Scores text, voice, engagement and case-context signals longitudinally.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🔍</div>
+      <div class="feat-title">Explainable AI (SHAP)</div>
+      <div class="feat-desc">Every alert includes top contributing factors so counsellors understand <em>why</em> risk rose — not just that it did.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🔒</div>
+      <div class="feat-title">Privacy &amp; Consent-First</div>
+      <div class="feat-desc">DPDP Act 2023 compliant. AES-256 encryption, OAuth 2.0, anonymised IDs and full audit trail.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">👩‍⚕️</div>
+      <div class="feat-title">Human-in-the-Loop</div>
+      <div class="feat-desc">AI flags; humans decide. Counsellors review, acknowledge and record every intervention.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🗺️</div>
+      <div class="feat-title">District / State Dashboard</div>
+      <div class="feat-desc">Aggregate distress heatmaps for district officers, state coordinators and national MoSJE oversight.</div>
+    </div>
+  </div>
+
+  <div class="tech-stack-bar">
+    <span class="ts-label">Tech Stack:</span>
+    <span class="ts-chip">FastAPI</span><span class="ts-chip">PyTorch</span>
+    <span class="ts-chip">XGBoost</span><span class="ts-chip">SHAP</span>
+    <span class="ts-chip">MuRIL / IndicBERT</span><span class="ts-chip">Librosa</span>
+    <span class="ts-chip">React.js</span><span class="ts-chip">Flutter</span>
+    <span class="ts-chip">PostgreSQL</span><span class="ts-chip">Docker · Azure</span>
+  </div>
+
+  <!-- ── ADDITIVE: Channels Supported row ── -->
+  <div class="channels-row">
+    <div class="channels-label">Channels Supported</div>
+    <div class="channels-grid">
+      <div class="channel-card">
+        <div class="channel-icon">💬</div>
+        <div class="channel-name">Chatbot</div>
+        <div class="channel-sub">Consent-based, multilingual</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">📞</div>
+        <div class="channel-name">IVRS</div>
+        <div class="channel-sub">Consent-based, multilingual</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">📱</div>
+        <div class="channel-name">SMS</div>
+        <div class="channel-sub">Consent-based, multilingual</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">📲</div>
+        <div class="channel-name">Mobile App</div>
+        <div class="channel-sub">Consent-based, multilingual</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">🌐</div>
+        <div class="channel-name">Web Portal</div>
+        <div class="channel-sub">Consent-based, multilingual</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCREEN 2: CHECK-IN ── -->
+<section id="screen-checkin" class="screen">
+  <div class="page-header">
+    <h2>🗣️ Victim Check-in Module</h2>
+    <p>Simulate a chatbot check-in. Enter text in English or Hindi and adjust the context sliders — the AI will compute a Dynamic Distress Score with full explainability.</p>
+  </div>
+
+  <!-- ── ADDITIVE: Tab strip ── -->
+  <div class="checkin-tabs">
+    <button class="ci-tab active" id="tab-text" onclick="switchCheckinTab('text')">💬 Text Check-in</button>
+    <button class="ci-tab" id="tab-voice" onclick="switchCheckinTab('voice')">📞 Voice Check-in <span class="tab-badge">IVRS Simulated</span></button>
+  </div>
+
+  <!-- ── TAB 1: TEXT (existing, unchanged) ── -->
+  <div id="ci-pane-text" class="ci-pane">
+  <div class="checkin-layout">
+    <div class="checkin-form card">
+      <label class="field-label">Language
+        <select id="ci-lang">
+          <option value="en">🇬🇧 English</option>
+          <option value="hi">🇮🇳 Hindi</option>
+        </select>
+      </label>
+
+      <label class="field-label">What's on your mind today?
+        <textarea id="ci-text" rows="5" placeholder="Type your check-in message here… e.g. 'I have been feeling very afraid and alone. The court date keeps getting delayed and I have no money left. I can't sleep at night.'"></textarea>
+      </label>
+
+      <div class="slider-grid">
+        <div class="slider-item">
+          <label class="field-label">Sentiment (−1 negative → +1 positive)
+            <input type="range" id="ci-sentiment" min="-1" max="1" step="0.05" value="-0.4">
+            <span id="ci-sentiment-val">−0.40</span>
+          </label>
+        </div>
+        <div class="slider-item">
+          <label class="field-label">Missed check-ins (last 30 days)
+            <input type="range" id="ci-missed" min="0" max="10" step="1" value="2">
+            <span id="ci-missed-val">2</span>
+          </label>
+        </div>
+        <div class="slider-item">
+          <label class="field-label">Case delay (days)
+            <input type="range" id="ci-delay" min="0" max="730" step="10" value="120">
+            <span id="ci-delay-val">120</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="preset-row">
+        <span class="field-label">Quick presets:</span>
+        <button class="preset-btn" onclick="setPreset('low')">Low Risk</button>
+        <button class="preset-btn" onclick="setPreset('moderate')">Moderate</button>
+        <button class="preset-btn" onclick="setPreset('high')">High Risk</button>
+        <button class="preset-btn" onclick="setPreset('critical')">Critical</button>
+      </div>
+
+      <button class="btn-primary wide" onclick="runCheckin()">🔍 Analyse Check-in</button>
+    </div>
+
+    <div id="ci-result" class="checkin-result card hidden">
+      <div class="dds-display">
+        <div class="dds-label">Dynamic Distress Score</div>
+        <div class="dds-gauge-wrap">
+          <canvas id="ddsGauge" width="200" height="120"></canvas>
+        </div>
+        <div class="dds-number" id="ci-dds-num">—</div>
+        <div id="ci-risk-badge" class="risk-badge-large">—</div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-title">🔎 Top Contributing Factors</div>
+        <div id="ci-factors"></div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-title">💊 Recommended Intervention</div>
+        <div id="ci-intervention" class="intervention-box"></div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-title">⚙️ Formula Used</div>
+        <code class="formula-box">DDS = 40%×keywords + 25%×sentiment + 15%×engagement + 20%×case_delay</code>
+      </div>
+    </div>
+  </div>
+  </div><!-- end ci-pane-text -->
+
+  <!-- ── TAB 2: VOICE (ADDITIVE) ── -->
+  <div id="ci-pane-voice" class="ci-pane hidden">
+  <div class="checkin-layout">
+    <div class="voice-form card">
+      <div class="voice-header">
+        <div class="voice-status-dot" id="voice-dot"></div>
+        <div>
+          <div class="voice-title">IVRS Simulation — Inbound Call</div>
+          <div class="voice-sub">Simulates a Twilio IVRS call with Librosa acoustic feature extraction</div>
+        </div>
+      </div>
+
+      <!-- Static waveform SVG -->
+      <div class="waveform-wrap" id="waveform-wrap">
+        <svg id="voiceWave" viewBox="0 0 500 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <polyline id="wavePolyline"
+            points="0,40 10,38 20,30 30,42 40,20 50,50 60,35 70,28 80,44 90,18 100,48 110,32 120,40 130,22 140,52 150,36 160,28 170,46 180,20 190,50 200,38 210,26 220,44 230,16 240,52 250,40 260,30 270,46 280,22 290,54 300,36 310,28 320,44 330,18 340,50 350,34 360,40 370,24 380,52 390,38 400,28 410,46 420,20 430,50 440,36 450,30 460,44 470,22 480,52 490,40 500,40"
+            fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+        </svg>
+        <div class="waveform-label" id="waveform-label">Awaiting call…</div>
+      </div>
+
+      <button class="btn-primary wide" id="ivrs-btn" onclick="simulateIVRS()">📞 Simulate IVRS Call</button>
+
+      <!-- Transcript (hidden until call simulated) -->
+      <div id="voice-transcript" class="voice-transcript hidden">
+        <div class="transcript-label">📝 Auto-Transcript (ASR)</div>
+        <div class="transcript-text">"I feel afraid. The threats have not stopped. I cannot sleep."</div>
+      </div>
+
+      <!-- Feature table (hidden until call simulated) -->
+      <div id="voice-features" class="voice-features hidden">
+        <div class="vf-label">🎙️ Extracted Voice Biomarkers (Librosa)</div>
+        <table class="vf-table">
+          <thead><tr><th>Feature</th><th>Value</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>MFCC2</td><td>0.73</td><td><span class="vf-warn">⚠️ Elevated</span></td></tr>
+            <tr><td>Loudness</td><td>−18.4 dB</td><td><span class="vf-warn">⚠️ Low</span></td></tr>
+            <tr><td>Pitch Variance</td><td>42 Hz</td><td><span class="vf-warn">⚠️ High</span></td></tr>
+            <tr><td>Pause Ratio</td><td>0.31</td><td><span class="vf-warn">⚠️ Elevated</span></td></tr>
+          </tbody>
+        </table>
+        <div class="vf-note">Voice biomarkers extracted via Librosa. Real-time IVRS integration planned for v2.</div>
+      </div>
+    </div>
+
+    <!-- Voice result (reuses same gauge layout) -->
+    <div id="voice-result" class="checkin-result card hidden">
+      <div class="dds-display">
+        <div class="dds-label">Dynamic Distress Score (Voice)</div>
+        <div class="dds-gauge-wrap">
+          <canvas id="ddsGaugeVoice" width="200" height="120"></canvas>
+        </div>
+        <div class="dds-number" id="voice-dds-num">—</div>
+        <div id="voice-risk-badge" class="risk-badge-large">—</div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-title">🔎 Top Contributing Factors</div>
+        <div id="voice-factors"></div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-title">💊 Recommended Intervention</div>
+        <div id="voice-intervention" class="intervention-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How voice analysis works — expander -->
+  <div class="voice-expander card">
+    <button class="expander-btn" onclick="toggleExpander(this)">
+      ℹ️ How Voice Analysis Works <span class="expander-arrow">▼</span>
+    </button>
+    <div class="expander-body hidden">
+      <ul class="expander-list">
+        <li><strong>MFCC2 and Loudness</strong> are validated cross-linguistic PTSD markers (Kathan et al., Interspeech 2024) — elevated MFCC2 and reduced loudness correlate with hypoarousal states associated with chronic stress and PTSD.</li>
+        <li><strong>Librosa</strong> extracts acoustic features from IVRS call recordings — MFCC coefficients, spectral centroid, RMS energy, and pause detection — without storing the raw audio.</li>
+        <li><strong>PyTorch classifier</strong> maps the feature vector to a distress signal which feeds the same DDS formula as text check-in, enabling a unified score across channels.</li>
+      </ul>
+    </div>
+  </div>
+  </div><!-- end ci-pane-voice -->
+
+</section>
+
+<!-- ── SCREEN 3: COUNSELLOR DASHBOARD ── -->
+<section id="screen-dashboard" class="screen">
+  <div class="page-header">
+    <h2>👩‍⚕️ Counsellor Dashboard</h2>
+    <p>All monitored victims sorted by distress level. Click a row to open the victim detail view.</p>
+    <div class="dashboard-controls">
+      <input type="text" id="db-search" placeholder="🔍 Search victim ID / state / offence…" oninput="filterDashboard()">
+      <select id="db-filter-risk" onchange="filterDashboard()">
+        <option value="">All Risk Levels</option>
+        <option value="critical">Critical</option>
+        <option value="high">High</option>
+        <option value="moderate">Moderate</option>
+        <option value="low">Low</option>
+      </select>
+      <select id="db-sort" onchange="filterDashboard()">
+        <option value="dds">Sort: DDS ↓</option>
+        <option value="name">Sort: ID A-Z</option>
+      </select>
+      <button class="btn-outline sm" onclick="loadDashboard()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <div id="db-kpis" class="kpi-row"></div>
+
+  <div class="table-wrap card">
+    <table id="db-table">
+      <thead>
+        <tr>
+          <th>Victim ID</th>
+          <th>State</th>
+          <th>Offence Type</th>
+          <th>Case Stage</th>
+          <th>DDS</th>
+          <th>Risk Level</th>
+          <th>Last Check-in</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="db-tbody"></tbody>
+    </table>
+    <div id="db-empty" class="empty-state hidden">Loading victims…</div>
+  </div>
+</section>
+
+<!-- ── SCREEN 4: VICTIM DETAIL ── -->
+<section id="screen-detail" class="screen">
+  <div class="page-header">
+    <button class="btn-back" onclick="goTo('dashboard')">← Back to Dashboard</button>
+    <div id="detail-header-info"></div>
+  </div>
+
+  <div class="detail-grid">
+    <!-- Left column -->
+    <div class="detail-left">
+      <div class="card">
+        <div class="card-title">📈 30-Day DDS Trend</div>
+        <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+        <div id="detail-trend-label" class="trend-label"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 Case Stage Progress</div>
+        <div id="detail-stage-bar"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💬 Recent Check-in Summaries</div>
+        <div id="detail-summaries"></div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="detail-right">
+      <div class="card">
+        <div class="card-title">🔍 AI Explainability (SHAP-style)</div>
+        <p class="card-sub">What drove the distress score in the latest check-in</p>
+        <div id="detail-shap"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🩺 Intervention History</div>
+        <div id="detail-interventions"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">👤 Victim Profile</div>
+        <div id="detail-profile"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCREEN 5: ALERT PANEL ── -->
+<section id="screen-alerts" class="screen">
+  <div class="page-header">
+    <h2>🚨 Alert Panel</h2>
+    <p>High-risk cases (DDS &gt; 60). Each alert requires human acknowledgment before the case is marked reviewed.</p>
+    <div class="dashboard-controls">
+      <select id="al-filter" onchange="filterAlerts()">
+        <option value="">All Alerts</option>
+        <option value="open">Open Only</option>
+        <option value="acknowledged">Acknowledged</option>
+        <option value="critical">Critical</option>
+        <option value="high">High</option>
+      </select>
+      <button class="btn-outline sm" onclick="loadAlerts()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <div id="al-kpis" class="kpi-row"></div>
+  <div id="alert-list" class="alert-list"></div>
+
+  <!-- Acknowledge modal -->
+  <div id="ack-modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-title">✅ Acknowledge Alert</div>
+      <p>Victim: <strong id="ack-victim-id"></strong></p>
+      <label class="field-label">Counsellor note (optional)
+        <textarea id="ack-note" rows="3" placeholder="Enter action taken…"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="submitAcknowledge()">Confirm Acknowledgment</button>
+        <button class="btn-outline" onclick="closeAckModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCREEN 6: ANALYTICS ── -->
+<section id="screen-analytics" class="screen">
+  <div class="page-header">
+    <h2>📊 Analytics Dashboard</h2>
+    <p>District / state / national aggregate view. All data is synthetic for prototype demonstration.</p>
+    <button class="btn-outline sm" onclick="loadAnalytics()">↻ Refresh</button>
+  </div>
+
+  <div id="an-kpis" class="kpi-row"></div>
+
+  <div class="analytics-grid">
+    <div class="card">
+      <div class="card-title">🗺️ State-wise Distress Heatmap</div>
+      <div id="an-heatmap"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎯 Risk Level Distribution</div>
+      <div class="chart-wrap sm"><canvas id="riskPieChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📁 Case Stage Breakdown</div>
+      <div class="chart-wrap sm"><canvas id="stageBarChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📬 Intervention Success Rate</div>
+      <div id="an-intervention"></div>
+    </div>
+  </div>
+</section>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

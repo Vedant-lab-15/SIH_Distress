@@ -1,0 +1,28 @@
+digraph G {
+rankdir=LR;
+graph [bgcolor="transparent", pad="0.2", nodesep="0.35", ranksep="0.6"];
+node [shape=box, style="rounded,filled", fontname="Arial", fontsize=11, margin="0.14,0.10"];
+edge [color="#64748b", arrowsize=0.7];
+channels [label="Chatbot / IVRS / SMS\nMobile / Web", fillcolor="#E2E8F0"];
+api [label="FastAPI\nValidation + API", fillcolor="#DBEAFE"];
+db [label="SQLite / PostgreSQL\nVictims • Interactions • Predictions\nReview flags • Audit logs", fillcolor="#DCFCE7"];
+features [label="Feature Engineering\nCurrent + Longitudinal History", fillcolor="#FEF3C7"];
+model [label="Dynamic XGBoost\nNext distress score", fillcolor="#FDE68A"];
+shap [label="SHAP\nGlobal + local attribution", fillcolor="#F3E8FF"];
+review [label="Human Review Queue\nHigh / Critical flags", fillcolor="#FEE2E2"];
+dash [label="Browser Dashboard\nTimeline • Metrics • Queue", fillcolor="#E0F2FE"];
+hf [label="Optional HF MiniLM\nText embeddings", fillcolor="#EDE9FE"];
+channels -> api;
+api -> db [label="persist"];
+db -> features [label="history"];
+api -> features [label="current interaction"];
+features -> hf [style=dashed, label="optional"];
+features -> model;
+hf -> model [style=dashed];
+model -> shap;
+model -> api [label="score + risk"];
+shap -> api [label="attribution"];
+api -> review [label="human review only"];
+api -> dash;
+db -> dash [label="read"];
+}

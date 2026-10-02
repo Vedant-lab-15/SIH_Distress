@@ -1,0 +1,17 @@
+services:
+  distress-monitor:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: demo
+      DEMO_MODE: "true"
+      DATABASE_URL: sqlite:///./runtime/demo.sqlite
+      MODEL_DIR: ./models
+      DATASET_PATH: ./data/synthetic/synthetic_distress_dataset.csv
+      MODEL_VERSION: dynamic-xgb-v1.0
+      AUTH_ENABLED: "false"
+      ALLOWED_ORIGINS: http://localhost:8000
+      EMERGENCY_CONTACT_PLACEHOLDER: "[CONFIGURE OFFICIAL EMERGENCY / HELPLINE CONTACT]"
+    volumes:
+      - ./runtime:/app/runtime

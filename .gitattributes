@@ -1,0 +1,12 @@
+# Normalize line endings to LF in the repo for cross-platform consistency
+* text=auto eol=lf
+
+# Binary files — no line-ending conversion
+*.joblib binary
+*.pkl    binary
+*.h5     binary
+*.png    binary
+*.jpg    binary
+*.svg    binary
+*.xlsx   binary
+*.pdf    binary

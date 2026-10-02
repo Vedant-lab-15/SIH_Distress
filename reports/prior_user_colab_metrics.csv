@@ -1,0 +1,6 @@
+model,test_mae,test_rmse,test_r2
+Ridge,5.153364,6.544208,0.934358
+Random Forest,5.317311,6.755869,0.930043
+XGBoost,4.919491,6.194955,0.941177
+Dynamic XGBoost,4.913202,6.201162,0.94106
+Hybrid XGBoost + Hugging Face,4.941887,6.218362,0.940732

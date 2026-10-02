@@ -1,0 +1,13 @@
+{
+  "project": "AI-Powered Dynamic Mental Health Monitoring and Distress Prediction System",
+  "problem_statement_id": "26094",
+  "dataset": "synthetic_distress_dataset.csv",
+  "dataset_rows": 20000,
+  "synthetic_victims": 2000,
+  "seed": 42,
+  "primary_model_artifact": "models/dynamic_xgboost.joblib",
+  "model_version": "dynamic-xgboost-v1.0",
+  "tests": "8 passed",
+  "docker": "configuration supplied; build not executed because Docker is unavailable in the environment",
+  "optional_hugging_face": "sentence-transformers/all-MiniLM-L6-v2 adapter included; external download not executed because this environment has no network access"
+}

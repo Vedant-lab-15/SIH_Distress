@@ -1,0 +1,369 @@
+{
+  "dataset": "data/synthetic/synthetic_distress_dataset.csv",
+  "seed": 42,
+  "target": "next_distress_score",
+  "risk_thresholds": {
+    "low": "<40",
+    "moderate": "40-64.99",
+    "high": "65-79.99",
+    "critical": ">=80"
+  },
+  "victim_counts": {
+    "train": 1400,
+    "validation": 300,
+    "test": 300
+  },
+  "row_counts": {
+    "train": 14000,
+    "validation": 3000,
+    "test": 3000
+  },
+  "results": [
+    {
+      "model": "Mean Baseline",
+      "feature_set": "none",
+      "train_size": 14000,
+      "validation_size": 3000,
+      "test_size": 3000,
+      "validation": {},
+      "test": {
+        "mae": 20.788582090000002,
+        "rmse": 25.592366990986296,
+        "r2": -0.003894682251721404
+      },
+      "test_risk": {
+        "accuracy": 0.3606666666666667,
+        "precision_macro": 0.09016666666666667,
+        "recall_macro": 0.25,
+        "f1_macro": 0.13253307202351788,
+        "high_critical_precision": 0.0,
+        "high_critical_recall": 0.0,
+        "high_critical_f1": 0.0,
+        "confusion_matrix": [
+          [
+            0,
+            1073,
+            0,
+            0
+          ],
+          [
+            0,
+            1082,
+            0,
+            0
+          ],
+          [
+            0,
+            402,
+            0,
+            0
+          ],
+          [
+            0,
+            443,
+            0,
+            0
+          ]
+        ],
+        "confusion_labels": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      }
+    },
+    {
+      "model": "Current Distress Only",
+      "feature_set": "current_only",
+      "train_size": 14000,
+      "validation_size": 3000,
+      "test_size": 3000,
+      "validation": {},
+      "test": {
+        "mae": 8.096538658025723,
+        "rmse": 10.396929381013388,
+        "r2": 0.8343171973770015
+      },
+      "test_risk": {
+        "accuracy": 0.7143333333333334,
+        "precision_macro": 0.69956714359826,
+        "recall_macro": 0.6607275374572209,
+        "f1_macro": 0.6744084897095484,
+        "high_critical_precision": 0.8537549407114624,
+        "high_critical_recall": 0.7668639053254438,
+        "high_critical_f1": 0.8079800498753117,
+        "confusion_matrix": [
+          [
+            867,
+            203,
+            3,
+            0
+          ],
+          [
+            158,
+            816,
+            102,
+            6
+          ],
+          [
+            1,
+            179,
+            184,
+            38
+          ],
+          [
+            0,
+            17,
+            150,
+            276
+          ]
+        ],
+        "confusion_labels": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      }
+    },
+    {
+      "model": "Ridge",
+      "feature_set": "static",
+      "train_size": 14000,
+      "validation_size": 3000,
+      "test_size": 3000,
+      "validation": {
+        "mae": 4.7217252045750255,
+        "rmse": 6.036745621333867,
+        "r2": 0.9465036514983215
+      },
+      "test": {
+        "mae": 4.760880670215606,
+        "rmse": 6.019700260731612,
+        "r2": 0.9444585801293537
+      },
+      "test_risk": {
+        "accuracy": 0.8303333333333334,
+        "precision_macro": 0.8152168932941184,
+        "recall_macro": 0.7891294326221503,
+        "f1_macro": 0.8000593716171381,
+        "high_critical_precision": 0.9309895833333334,
+        "high_critical_recall": 0.8461538461538461,
+        "high_critical_f1": 0.8865468071915685,
+        "confusion_matrix": [
+          [
+            972,
+            101,
+            0,
+            0
+          ],
+          [
+            102,
+            927,
+            53,
+            0
+          ],
+          [
+            0,
+            127,
+            250,
+            25
+          ],
+          [
+            0,
+            3,
+            98,
+            342
+          ]
+        ],
+        "confusion_labels": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      }
+    },
+    {
+      "model": "Random Forest",
+      "feature_set": "static",
+      "train_size": 14000,
+      "validation_size": 3000,
+      "test_size": 3000,
+      "validation": {
+        "mae": 5.496807404567068,
+        "rmse": 6.9997312039086435,
+        "r2": 0.9280747940831972
+      },
+      "test": {
+        "mae": 5.443149644936529,
+        "rmse": 6.893367248047629,
+        "r2": 0.9271666850728673
+      },
+      "test_risk": {
+        "accuracy": 0.7983333333333333,
+        "precision_macro": 0.7783065388986051,
+        "recall_macro": 0.7630549009686981,
+        "f1_macro": 0.7700567773025816,
+        "high_critical_precision": 0.8915510718789408,
+        "high_critical_recall": 0.8366863905325443,
+        "high_critical_f1": 0.8632478632478633,
+        "confusion_matrix": [
+          [
+            939,
+            134,
+            0,
+            0
+          ],
+          [
+            125,
+            871,
+            86,
+            0
+          ],
+          [
+            0,
+            134,
+            224,
+            44
+          ],
+          [
+            0,
+            4,
+            78,
+            361
+          ]
+        ],
+        "confusion_labels": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      }
+    },
+    {
+      "model": "XGBoost",
+      "feature_set": "static",
+      "train_size": 14000,
+      "validation_size": 3000,
+      "test_size": 3000,
+      "validation": {
+        "mae": 4.803488108900984,
+        "rmse": 6.12087326088093,
+        "r2": 0.945002219675516
+      },
+      "test": {
+        "mae": 4.83821825327913,
+        "rmse": 6.111259526125955,
+        "r2": 0.9427561679930092
+      },
+      "test_risk": {
+        "accuracy": 0.824,
+        "precision_macro": 0.7997415422489719,
+        "recall_macro": 0.7901928922981711,
+        "f1_macro": 0.7946695833831688,
+        "high_critical_precision": 0.9055900621118013,
+        "high_critical_recall": 0.8627218934911243,
+        "high_critical_f1": 0.8836363636363637,
+        "confusion_matrix": [
+          [
+            964,
+            109,
+            0,
+            0
+          ],
+          [
+            109,
+            897,
+            76,
+            0
+          ],
+          [
+            0,
+            113,
+            235,
+            54
+          ],
+          [
+            0,
+            3,
+            64,
+            376
+          ]
+        ],
+        "confusion_labels": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      }
+    },
+    {
+      "model": "Dynamic XGBoost",
+      "feature_set": "dynamic",
+      "train_size": 14000,
+      "validation_size": 3000,
+      "test_size": 3000,
+      "validation": {
+        "mae": 4.877979035994509,
+        "rmse": 6.184817232290775,
+        "r2": 0.9438471079793196
+      },
+      "test": {
+        "mae": 4.822686148261626,
+        "rmse": 6.110596850669664,
+        "r2": 0.9427685818090609
+      },
+      "test_risk": {
+        "accuracy": 0.8243333333333334,
+        "precision_macro": 0.7997850523609417,
+        "recall_macro": 0.7901124137481603,
+        "f1_macro": 0.7947083064899769,
+        "high_critical_precision": 0.9048207663782447,
+        "high_critical_recall": 0.8662721893491124,
+        "high_critical_f1": 0.8851269649334945,
+        "confusion_matrix": [
+          [
+            969,
+            104,
+            0,
+            0
+          ],
+          [
+            110,
+            895,
+            77,
+            0
+          ],
+          [
+            0,
+            110,
+            241,
+            51
+          ],
+          [
+            0,
+            3,
+            72,
+            368
+          ]
+        ],
+        "confusion_labels": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      }
+    }
+  ],
+  "leakage_columns_excluded": [
+    "intervention_triggered",
+    "next_distress_score",
+    "risk_level"
+  ],
+  "note": "Metrics are from the supplied synthetic benchmark; they are not clinical validation."
+}
